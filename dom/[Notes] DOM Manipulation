@@ -1,0 +1,46 @@
+document
+  .getElementById("changeTextButton")
+  .addEventListener("click", function () {
+    console.log(this);
+  });
+
+/*
+    Normal function will always point to the local context
+    <button id="changeTextButton">Change Text</button>
+*/
+
+document.getElementById("changeTextButton").addEventListener("click", () => {
+  console.log(this);
+});
+
+/*
+    Arrow functions does not have this, it always points to the global this
+    <button id="changeTextButton">Change Text</button>
+*/
+
+// Select the element using getElementById
+let paragraph = document.getElementById("myParagraph");
+
+// Change the text content
+paragraph.textContent = "Paragraph is changed";
+
+/*
+HTML ->  Markup language
+DOM -> Processed elements in document tree in memory
+
+Markup language code -> Taken by the browser -> Internally browser runs c++ -> Document tree is generated 
+Thats generated document tree is called DOM
+*/
+
+// Functions that can be used to manipulate the css class
+citiesList.firstElementChild.classList?.contains("highlight");
+citiesList.firstElementChild.classList.add("highlight");
+citiesList.firstElementChild.classList.remove("highlight");
+
+// Adding styles
+let order = document.getElementById("coffeeOrder");
+order.style.backgroundColor = "red";
+
+// Removing
+document.getElementById("taskList").remove();
+document.getElementById("taskList").lastElementChild.remove();
