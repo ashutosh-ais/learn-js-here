@@ -44,3 +44,24 @@ order.style.backgroundColor = "red";
 // Removing
 document.getElementById("taskList").remove();
 document.getElementById("taskList").lastElementChild.remove();
+
+// Events
+addEventListener("click", function () {
+  alert("demo");
+});
+addEventListener("dblclick", function () {
+  alert("demo");
+});
+addEventListener("mouseover", function () {
+  alert("demo");
+});
+
+// Event delegation
+if (event.target && event.target.matches(".teaItem")) {
+  alert("You selected: " + event.target.textContent);
+}
+
+// matches only matches the given selector it can be id, class ..
+if (event.target && event.target.matches(".teaItem")) {
+  alert("You selected: " + event.target.textContent);
+}

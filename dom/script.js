@@ -48,3 +48,56 @@ document
     // taskList.remove();
     taskList.lastElementChild?.remove();
   });
+
+// example[6]
+document
+  .getElementById("clickMeButton")
+  .addEventListener("mouseover", function () {
+    alert("demo");
+  });
+
+// example[7]
+document.getElementById("teaList").addEventListener("click", function (event) {
+  // console.log(event);
+  // console.log(event.target); -> li items
+  if (event.target && event.target.matches(".teaItem")) {
+    alert("You selected: " + event.target.textContent);
+  }
+});
+
+// example[8]
+document
+  .getElementById("feedbackForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    let feedback = document.getElementById("feedbackInput").value;
+    document.getElementById("feedbackDisplay").textContent =
+      `Feedback is ${feedback}`;
+  });
+
+// example[9]
+document.addEventListener("DOMContentLoaded", function () {
+  // After DOM content gets loaded the text content will get changed to Ashutosh
+  let domStatus = document.getElementById("domStatus");
+  domStatus.textContent = "Ashutosh";
+  domStatus.style.backgroundColor = "yellow";
+});
+
+// example[10]
+document
+  .getElementById("toggleHighlight")
+  .addEventListener("click", function () {
+    let descriptionTextElement = document.getElementById("descriptionText");
+    // if (descriptionTextElement.classList.contains("highlight")) {
+    //   descriptionTextElement.classList.remove("highlight");
+    // } else {
+    //   descriptionTextElement.classList.add("highlight");
+    // }
+    descriptionTextElement.classList.toggle("highlight");
+  });
+
+// Extract all the links from DOM
+let anchor = document.getElementsByTagName("a");
+for (let index = 0; index < anchor.length; index++) {
+  console.log(anchor[index].textContent + " : " + anchor[index].href);
+}
