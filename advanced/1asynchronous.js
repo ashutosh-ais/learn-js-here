@@ -24,5 +24,9 @@ Having pause
     5. [.....]
 
 Event loop
-    1 
+    1. Code 
+    2. Call stack
+    3. Browser node bun deno
+    4. Event loop
+    5. Queues -> Regular/ Fast pace queue
 */
