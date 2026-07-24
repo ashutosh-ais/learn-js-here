@@ -30,6 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderTasks(task) {
-    console.log(task);
+    const li = document.createElement("li");
+    li.setAttribute("data-id", task.id);
+    if (task.completed) {
+      li.classList.add("completed");
+    }
+    li.innerHTML = `
+        <span>${task.text}</span>
+        <button>Delete</button>
+    `;
+    li.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") {
+        task.completed = !task.completed;
+      }
+      li.classList.toggle("completed");
+      saveTasks();
+    });
+
+    li.querySelector("button").addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent toggle from firing
+      tasks;
+    });
+    todoList.appendChild(li);
   }
 });
