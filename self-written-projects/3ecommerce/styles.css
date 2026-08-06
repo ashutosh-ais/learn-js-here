@@ -81,3 +81,22 @@ h2 {
 .hidden {
   display: none;
 }
+
+.cart-item-view {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-item-view button {
+  background-color: rgb(196, 122, 122);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 2px;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.cart-item-view button:hover {
+  background-color: #d94646;
+}

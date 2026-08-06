@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 2, name: "Product 2", price: 19.9923 },
     { id: 3, name: "Product 3", price: 59.99 },
   ];
-  const cart = [];
+  let cart = [];
   const productList = document.getElementById("product-list");
   const cartItems = document.getElementById("cart-items");
   const emptyCartMessage = document.getElementById("empty-cart");
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkOutBtn = document.getElementById("checkout-btn");
 
   // Getting cart products from local
-  const localCart = JSON.parse(localStorage.getItem("my-cart"));
+  const localCart = JSON.parse(localStorage.getItem("my-cart")) || [];
   if (localCart?.length > 0) {
     localCart.forEach((item) => {
       cart.push(item);
@@ -54,14 +54,17 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.forEach((item, index) => {
         totalPrice += item?.price;
         const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item-view");
         cartItem.innerHTML = `
-            ${item.name} - ${item?.price?.toFixed(2)}
+            <span>${item.name} - ${item?.price?.toFixed(2)}</span>
+            <button data-index=${index}>Remove</button>       
         `;
         cartItems.appendChild(cartItem);
       });
-      totalPriceDisplay.textContent = `${totalPrice}`;
+      totalPriceDisplay.textContent = `$${totalPrice?.toFixed(2)}`;
     } else {
       emptyCartMessage.classList.remove("hidden");
+      cartTotalMessage.classList.remove("hidden");
     }
   }
 
@@ -75,4 +78,33 @@ document.addEventListener("DOMContentLoaded", () => {
   function syncCartToStorage() {
     localStorage.setItem("my-cart", JSON.stringify(cart));
   }
+
+  cartItems.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      //   const productIndex = parseInt(e.target.getAttribute("data-id"));
+      const productIndex = Number(e.target.dataset.index); // We can extract index using this also
+      cart.splice(productIndex, 1);
+      if (cart?.length === 0) {
+        totalPriceDisplay.textContent = `$0.00`;
+      }
+      syncCartToStorage();
+      renderCart();
+    }
+  });
 });
+
+/*
+<div
+  data-user-name="John"
+  data-product-price="99"
+></div>
+
+becomes
+div.dataset.userName;
+div.dataset.productPrice;
+
+Notice:
+data-user-name
+        ↓
+dataset.userName
+*/
