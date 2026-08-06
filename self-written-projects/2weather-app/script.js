@@ -2,12 +2,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityInput = document.getElementById("city-input");
   const getWeatherBtn = document.getElementById("get-weather-btn");
   const weatherInfo = document.getElementById("weather-info");
+  console.log("weatherInfo", weatherInfo);
   const cityNameDisplay = document.getElementById("city-name");
   const temperatureDisplay = document.getElementById("temperature");
   const descriptionDisplay = document.getElementById("description");
   const errorMessage = document.getElementById("error-message");
 
   const API_KEY = "c77aa8e77b9d5df42b6da03f6ce1c13d";
+
+  // cityInput.onchange = (e) => {
+  //   // Works on blur
+  //   console.log("text", e);
+  // };
+
+  cityInput.oninput = (e) => {
+    console.log("text", e.target.value);
+    const inputValue = e.target.value;
+    if (inputValue === "") {
+      weatherInfo.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+    }
+  };
+
+  cityInput.addEventListener("input", (e) => {
+    console.log("text", e.target.value);
+  });
 
   getWeatherBtn.addEventListener("click", async () => {
     const city = cityInput.value.trim();
@@ -37,13 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function displayWeatherData(data) {
-    // display
     const { name, main, weather } = data;
-    debugger;
+    cityNameDisplay.innerText = name;
+    temperatureDisplay.textContent = `Temperature : ${main.temp}`;
+    descriptionDisplay.textContent = `Weather : ${main.temp}`;
+    // Unlock the display
+    weatherInfo.classList.remove("hidden");
+    errorMessage.classList.add("hidden");
   }
 
   function showError() {
     weatherInfo.classList.add("hidden");
     errorMessage.classList.remove("hidden");
   }
+
+  // Background change
+  const bodyElement = document.getElementsByTagName("body");
+  console.log(bodyElement[0]);
+  const changeBackBtn = document.getElementById("change-back");
+
+  changeBackBtn.addEventListener("click", () => {
+    console.log("click");
+    bodyElement[0].classList.toggle("back-change");
+  });
 });
