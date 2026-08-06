@@ -5,8 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const expenseList = document.getElementById("expense-list");
   const totalAmountDisplay = document.getElementById("total-amount");
 
-  let expenses = [];
+  let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
   let totalAmount = calculateTotal();
+
+  renderExpenses();
 
   expenseForm.addEventListener("submit", (e) => {
     e?.preventDefault();
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       expenses?.push(newExpense);
       saveExpensesToLocal();
+      renderExpenses();
       updateTotal();
 
       // Clear input
@@ -42,4 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
     totalAmount = calculateTotal();
     totalAmountDisplay.textContent = `${totalAmount?.toFixed(2)}`;
   }
+
+  function renderExpenses() {
+    expenseList.innerHTML = "";
+    expenses.forEach((expense) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${expense.name} - ₹${expense.amount}
+        <button data-expense-id=${expense.id}>Delete</button>
+      `;
+      expenseList.appendChild(li);
+    });
+    updateTotal();
+  }
+
+  expenseList.addEventListener("click", (e) => {
+    console.log("first");
+    if (e.target.tagName === "BUTTON") {
+      const expenseId = parseInt(e.target.dataset.expenseId);
+      expenses = expenses.filter((item) => item?.id != expenseId);
+    }
+    saveExpensesToLocal();
+    renderExpenses();
+  });
 });
