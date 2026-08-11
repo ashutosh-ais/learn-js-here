@@ -1,0 +1,19 @@
+Database 
+SQL (Structure query language)
+No-Sql (Not Only SQL)
+
+Graph Database
+Vector Database
+
+Backend 
+
+Server ---- [ORM] ---- Database
+            Mongoose   MongoDB
+            Prisma 
+            Drizzle
+
+Server talks to the ORM layer
+ORM makes this easier
+ORM - Mongoose
+
+
