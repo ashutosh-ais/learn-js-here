@@ -38,6 +38,7 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
   console.log("__dirname : " + __dirname);
   console.log("__filename : " + __filename);
+  console.log("__filename : " + path.join(__dirname, "index.html"));
   /*
     __dirname : /Users/anyhowinfo/Desktop/execute/self-written-projects-node/2server
     __filename : /Users/anyhowinfo/Desktop/execute/self-written-projects-node/2server/server.js
