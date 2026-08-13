@@ -1,0 +1,11 @@
+PRD - Project requirement document
+
+Example
+Authentication
+    - create an account
+    - login account
+
+Project management platform
+
+Setup Project
+npm init
