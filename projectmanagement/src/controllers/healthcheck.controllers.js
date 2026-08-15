@@ -1,5 +1,8 @@
 import ApiResponse from "../utils/api-response.js";
+import { asyncHandler } from "../utils/async-handler.js";
 
+/**
+// Without asyncHandler
 const healthCheck = (req, res) => {
   try {
     res
@@ -8,14 +11,10 @@ const healthCheck = (req, res) => {
   } catch (error) {}
 };
 
-const healthCheckInstagram = (req, res) => {
-  try {
-    res
-      .status(200)
-      .json(
-        new ApiResponse(200, { message: "Server is running :: instagram" }),
-      );
-  } catch (error) {}
-};
+*/
 
-export { healthCheck, healthCheckInstagram };
+const healthCheck = asyncHandler(async (req, res) => {
+  res.status(200).json(new ApiResponse(200, { message: "Server is running" }));
+});
+
+export { healthCheck };

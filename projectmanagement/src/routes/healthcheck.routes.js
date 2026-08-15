@@ -1,8 +1,5 @@
 import { Router } from "express";
-import {
-  healthCheck,
-  healthCheckInstagram,
-} from "../controllers/healthcheck.controllers.js";
+import { healthCheck } from "../controllers/healthcheck.controllers.js";
 
 const router = Router();
 
@@ -10,6 +7,5 @@ const router = Router();
 //   healthCheck(req, res);
 // });
 router.route("/").get(healthCheck);
-router.route("/instagram").get(healthCheckInstagram);
 
 export default router;
