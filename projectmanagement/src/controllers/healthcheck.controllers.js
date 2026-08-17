@@ -10,10 +10,9 @@ const healthCheck = (req, res) => {
       .json(new ApiResponse(200, { message: "Server is running" }));
   } catch (error) {}
 };
-
 */
 
-const healthCheck = asyncHandler(async (req, res) => {
+const healthCheck = asyncHandler(async (req, res, next) => {
   res.status(200).json(new ApiResponse(200, { message: "Server is running" }));
 });
 
