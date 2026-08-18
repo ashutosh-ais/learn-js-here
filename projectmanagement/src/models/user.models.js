@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import crypto, { hash } from "crypto";
 
 const userSchema = new Schema(
   {
@@ -63,6 +65,7 @@ const userSchema = new Schema(
 
 // Attaching prehook - If password is getting modified (Hash the password and store)
 userSchema.pre("save", async function (next) {
+  // Mongoose document method that checks whether the password field has been changed since the document was loaded or since its current state was established
   if (!this.isModified("password")) {
     return next();
   }
@@ -72,6 +75,36 @@ userSchema.pre("save", async function (next) {
 // Attaching method to the schema
 userSchema.methods.isPasswordCorrect = async function (password) {
   return bcrypt.compare(password, this.password);
+};
+
+userSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      username: this.username,
+      email: this.email,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY },
+  );
+};
+
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+  });
+};
+
+userSchema.methods.generateTemporaryToken = function () {
+  const unHashedToken = crypto.randomBytes(10).toString("hex");
+
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(unHashedToken)
+    .digest("hex");
+
+  const tokenExpiry = Date.now() + 20 * 60 * 1000;
+  return { unHashedToken, hashedToken, tokenExpiry };
 };
 
 export const User = mongoose.model("User", userSchema);
