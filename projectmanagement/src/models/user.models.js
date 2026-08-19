@@ -63,13 +63,15 @@ const userSchema = new Schema(
   },
 );
 
-// Attaching prehook - If password is getting modified (Hash the password and store)
+// Attaching prehook - If password is getting mod ified (Hash the password and store)
 userSchema.pre("save", async function (next) {
   // Mongoose document method that checks whether the password field has been changed since the document was loaded or since its current state was established
   if (!this.isModified("password")) {
-    return next();
+    // return next();
+    return;
   }
   this.password = await bcrypt.hash(this.password, 10);
+  // next();
 });
 
 // Attaching method to the schema
