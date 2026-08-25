@@ -21,3 +21,25 @@ const myPlaintextPassword = 's0/\/\P4$$w0rD';
     // Store hash in your password DB.
 })();
 ------------------------------------------------------------------------------------------------
+
+Validators:
+Zod
+Yup
+express-validator
+
+Middleware is a function that executes during the request–response cycle and can process the request, modify it, send a response, or pass control to the next middleware/handler.
+
+Middleware    ->   Validations   ->   Routes
+
+
+
+Login feature
+Take data from user
+Validate
+Is user exists -> 
+    If password is correct
+    Generate TOKENS
+    Send tokens in cookies
+
+Express has no direct connection with cookies
+Package that allow express to work with cookies -> cookies-parser
