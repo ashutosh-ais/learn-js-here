@@ -78,4 +78,18 @@ const registerUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password, username } = req.body;
+  if (!email) {
+    throw new ApiError(400, "Email is required!");
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(400, "User does no exists");
+  }
+
+  user.isPasswordCorrect();
+});
+
+export { registerUser, loginUser };
