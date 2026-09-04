@@ -6,6 +6,11 @@ var x = 10;
 
 /*
 Global execution context is created 
+An Execution Context is the environment created by the JavaScript engine in which JavaScript code is evaluated and executed.
+In simple words:
+Execution Context is the setup/environment JavaScript creates to know what variables, functions, this, and scope are available while executing a piece of code.
+You can think of it as a workspace for executing JavaScript code.
+
 Phase 1 - Memory phase 
 Phase 2 - Code phase
 -----------------------------------
